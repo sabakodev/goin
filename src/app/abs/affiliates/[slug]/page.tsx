@@ -7,7 +7,7 @@ import Image from "next/image"
 
 import { print } from "graphql/language/printer"
 import type { Metadata, ResolvingMetadata } from 'next'
-import { categoryTypeCleaner, tagsTypeCleaner } from "@/components/abs/projects"
+import { BusinessAffiliatesLists, categoryTypeCleaner, tagsTypeCleaner } from "@/components/abs/projects"
 
 
 export const BusinessQuery = gql`
@@ -79,11 +79,6 @@ export const ShortBusinessQuery = gql`
 	}
   }
 `
-
-export const metadata: Metadata = {
-	title: "Aliansi Bisnis GOIN",
-	description: "Aliansi Bisnis Gereja Orthodox Indonesia Neophytes",
-}
 
 export async function generateMetadata(
 	{ params }: {
@@ -190,6 +185,7 @@ export default async function BusinessAffiliateDetailPage({
 					</div>
 				</div>
 				<div className="max-w-sm lg:max-w-2xl mx-auto space-y-4 prose text-white" dangerouslySetInnerHTML={{ __html: business.content ?? '' }} />
+				<BusinessAffiliatesLists short={true} id={business.id} />
 				<BottomPitchSection />
 			</section>
 		)
