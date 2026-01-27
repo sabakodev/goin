@@ -1,12 +1,12 @@
 import Image from "next/image"
 import Link from "next/link"
 
-export default function Footer() {
+export default function Footer({ business = false }: { business?: boolean }) {
 	return (
-		<div className="grid grid-cols-3 w-full bg-secondary justify-between items-center px-16 py-8 text-primary text-sm">
+		<div className={`grid grid-cols-3 w-full justify-between items-center px-16 py-8 text-sm ${business ? 'bg-blue-dark text-blue-lighter' : 'bg-secondary text-primary'}`}>
 			<Link href="/">
 				<Image
-					src="/logo/goin/hollow/goin-beige.svg"
+					src={`/logo/goin/hollow/goin-${business ? 'blue' : 'beige'}.svg`}
 					alt="GOIN"
 					className="block hover:rotate-35 transition ease-in-out duration-300"
 					width={70}
