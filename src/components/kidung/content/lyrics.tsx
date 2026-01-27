@@ -6,7 +6,7 @@ import { Kidung } from "@/gql/graphql"
 
 export default function KidungLyrics({ post }: { post: Kidung }) {
 	const [font, setFont] = useState<'font-sans' | 'font-serif' | 'font-mono' | 'font-dyslexic'>('font-sans')
-	const [fontSize, setFontSize] = useState<number>(3)
+	const [fontSize, setFontSize] = useState<number>(2)
 
 	const fontChange = () => {
 		switch (font) {
@@ -26,13 +26,11 @@ export default function KidungLyrics({ post }: { post: Kidung }) {
 	}
 
 	const fontSizeSet = [
-		'text-xs',
-		'text-sm',
-		'text-base',
-		'text-lg',
-		'text-xl',
-		'text-2xl',
-		'text-3xl'
+		'prose-sm',
+		'prose-base',
+		'prose-lg',
+		'prose-xl',
+		'prose-2xl',
 	]
 
 	const increaseSize = () => {
@@ -52,7 +50,7 @@ export default function KidungLyrics({ post }: { post: Kidung }) {
 			<KidungLyricAccesibility fontChange={fontChange} increaseSize={increaseSize} decreaseSize={decreaseSize} />
 			<div className="font-semibold mb-16">
 				<h3 className="text-sm text-neutral-600">Lirik</h3>
-				<div className={`${font} ${fontSizeSet[fontSize]} space-y-5`} dangerouslySetInnerHTML={{ __html: post.content || "" }} />
+				<div className={`${font} ${fontSizeSet[fontSize]} prose space-y-5`} dangerouslySetInnerHTML={{ __html: post.content || "" }} />
 			</div>
 		</>
 	)
