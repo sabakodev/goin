@@ -46,6 +46,14 @@ export const AffiliatesQuery = gql`
 	}
   }
 `
+export const categoryTypeCleaner = (contentNode: Business) => {
+	const tags: string[] = (contentNode.tags?.nodes as Array<{ name?: string | null }> | undefined)
+		?.map((node) => node.name)
+		.filter((name): name is string => !!name) ?? []
+
+	return tags
+}
+
 export const tagsTypeCleaner = (contentNode: Business) => {
 	const tags: string[] = (contentNode.tags?.nodes as Array<{ name?: string | null }> | undefined)
 		?.map((node) => node.name)
