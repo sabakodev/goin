@@ -99,7 +99,7 @@ export default async function BusinessAffiliates() {
 	)
 }
 
-export async function BusinessAffiliatesLists() {
+export async function BusinessAffiliatesLists({ short = false, id = '' }: { short?: boolean, id?: string }) {
 	const { businesses } = await fetchGraphQL<{
 		businesses: {
 			nodes: Business[]
@@ -107,11 +107,13 @@ export async function BusinessAffiliatesLists() {
 	}>(
 		print(AffiliatesQuery), {
 		after: ``,
+		first: 4,
+		notIn: id,
 	},
 	)
 
 	return (
-		<div className="-mt-32 grid grid-cols-1 lg:grid-cols-4 justify-items-center gap-4 mx-auto px-6 w-fit">
+		<div className={`grid grid-cols-1 lg:grid-cols-4 justify-items-center gap-4 mx-auto px-6 w-fit ${short ? 'mt-16' : '-mt-32'}`}>
 			{
 				businesses.nodes.map((node, i) => (
 					<BusinessAffiliateCard
