@@ -38,7 +38,7 @@ export default function Navigation() {
 	return (
 		<div className="fixed pt-4 w-full flex justify-center z-99">
 			<nav
-				className="bg-neutral-900 flex rounded-full p-2 space-x-2 shadow-xl/25"
+				className="bg-neutral-900/90 backdrop-blur-lg flex rounded-full p-2 space-x-2 shadow-xl/25"
 			>
 				<Link href="/">
 					<Image
