@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import "@/app/globals.css"
 import PoweredBy from "@/components/global/power"
 import Footer from "@/components/global/footer"
 import HeaderBusiness from "@/components/abs/header"
