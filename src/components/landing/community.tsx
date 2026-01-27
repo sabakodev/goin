@@ -8,7 +8,7 @@ export default function Community() {
 				<Image
 					src="/logo/goin/solid/goin-black.svg"
 					alt="GOIN"
-					className="block hover:rotate-35 transition ease-in-out duration-300 mb-2"
+					className="block hover:animate-[spin_12s_linear_infinite] transition ease-in-out duration-300 mb-2"
 					width={62}
 					height={62}
 				/>
