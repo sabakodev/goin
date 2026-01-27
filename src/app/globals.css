@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
 	--background: #ffffff;
@@ -8,6 +9,13 @@
 	--beige: #DDC8B7;
 	--beige-dark: #B9A696;
 	--brown: #C94D3B;
+	--dark-red: #4F0000;
+
+	--blue-lighter: #CACAF0;
+	--blue-light: #5858FF;
+	--true-blue: #0000FF;
+	--blue-dark: #000083;
+	--blue-darkest: #191925;
 }
 
 @theme inline {
@@ -18,10 +26,17 @@
 	--font-serif: var(--font-instrument-serif);
 	--font-mono: var(--font-geist-mono);
 
-	--color-primary: var(--beige);
-	--color-primary-light: var(--beige-light);
 	--color-primary-lighter: var(--beige-lighter);
+	--color-primary-light: var(--beige-light);
+	--color-primary: var(--beige);
 	--color-primary-dark: var(--beige-dark);
+
+	--color-blue-lighter: var(--blue-lighter);
+	--color-blue-light: var(--blue-light);
+	--color-true-blue: var(--true-blue);
+	--color-blue-dark: var(--blue-dark);
+	--color-blue-darkest: var(--blue-darkest);
+
 	--color-secondary: var(--brown);
 
 	--color-link-hover: var(--beige-light);
