@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
-import "../globals.css"
+import "@/globals.css"
 import PoweredBy from "@/components/global/power"
 import Footer from "@/components/global/footer"
+import HeaderBusiness from "@/components/abs/header"
 
 export const metadata: Metadata = {
 	title: "Aliansi Bisnis GOIN",
@@ -16,10 +17,11 @@ export default function RootLayout({
 
 
 	return (
-		<>
+		<div className="bg-blue-dark min-h-screen">
+			<HeaderBusiness />
 			<PoweredBy business={true} />
 			{children}
-			<Footer />
-		</>
+			<Footer business={true} />
+		</div>
 	)
 }
