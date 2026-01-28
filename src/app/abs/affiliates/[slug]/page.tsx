@@ -103,7 +103,7 @@ export async function generateMetadata(
 	const previousImages = (await parent).openGraph?.images || []
 
 	return {
-		title: business.title,
+		title: `Aliansi Bisnis GOIN - ${business.title}`,
 		description: 'Aliansi Bisnis Gereja Orthodox Indonesia Neophytes',
 		authors: [
 			{ name: business.aliansiBisnis?.associateName, url: business.aliansiBisnis?.externalHref ?? '' }
@@ -158,15 +158,15 @@ export default async function BusinessAffiliateDetailPage({
 		return (
 			<section className="bg-blue-darkest">
 				<div
-					className="w-full bg-cover bg-center  min-h-[50vh]"
+					className="w-full bg-cover bg-center  min-h-[75vh] sm:min-h-[50vh]"
 					style={{
 						backgroundImage: `url(${business.featuredImage?.node.sourceUrl ?? ''})`,
 					}}>
-					<div className="bg-gradient-to-t from-blue-darkest from-10% via-20% via-blue-darkest to-blue-dark/50 min-h-[50vh] bg-no-repeat flex justify-center items-center text-white font-serif">
+					<div className="bg-gradient-to-t from-blue-darkest from-10% via-20% via-blue-darkest to-blue-dark/50 min-h-[75vh] sm:min-h-[50vh] bg-no-repeat flex justify-center items-center text-white font-serif">
 						<p className="text-3xl lg:text-5xl max-w-sm lg:max-w-5xl text-center">{business.title}</p>
 					</div>
 				</div>
-				<div className="max-w-sm lg:max-w-3xl mx-auto mb-8 lg:flex justify-between space-y-4 lg:space-y-0 lg:space-x-2 text-xs">
+				<div className="-mt-32 sm:mt-0 max-w-xs sm:max-w-sm px-4 lg:max-w-3xl mx-auto mb-8 lg:flex justify-between space-y-4 lg:space-y-0 lg:space-x-2 text-xs">
 					<div className="flex space-x-2 items-center px-2 text-white">
 						<Image src={business.aliansiBisnis?.associatePhotoProfile?.node.sourceUrl ?? ''} alt={business.aliansiBisnis?.associateName ?? ''} width={400} height={600} className="aspect-square rounded-full object-cover size-6" />
 						<div>
@@ -174,20 +174,20 @@ export default async function BusinessAffiliateDetailPage({
 							<div className="text-xs opacity-50 truncate">{business.aliansiBisnis?.profilParoki ?? ''}</div>
 						</div>
 					</div>
-					<div className="flex space-x-2">
+					<div className="flex flex-wrap max-w-xs gap-2 text-black">
 						{
 							categories.map((category, index) => (
-								<div key={index} className="bg-white hover:bg-white/90 hover:backdrop-blur-sm rounded-full px-4 py-2 flex items-center font-bold">{category}</div>
+								<span key={`c${index}`} className="max-w-fit bg-white hover:bg-white/90 hover:backdrop-blur-sm rounded-full px-4 py-2 flex items-center font-bold">{category}</span>
 							))
 						}
 						{
 							tags.map((tag, index) => (
-								<div key={index} className="bg-blue-lighter hover:bg-blue-lighter/90 hover:backdrop-blur-sm rounded-full px-4 py-2 flex items-center font-bold">{tag}</div>
+								<span key={`t${index}`} className="max-w-fit bg-blue-lighter hover:bg-blue-lighter/90 hover:backdrop-blur-sm rounded-full px-4 py-2 flex items-center font-bold">{tag}</span>
 							))
 						}
 					</div>
 				</div>
-				<div className="max-w-sm lg:max-w-2xl mx-auto space-y-4 prose text-white" dangerouslySetInnerHTML={{ __html: business.content ?? '' }} />
+				<div className="max-w-xs sm:max-w-sm px-4 lg:max-w-2xl mx-auto space-y-4 prose text-white" dangerouslySetInnerHTML={{ __html: business.content ?? '' }} />
 				<div className="flex justify-center mt-4">
 					<ButtonLink href={business.aliansiBisnis?.externalHref ?? '#'} theme="business_solid">Kunjungi Website <ArrowUpRightIcon className="size-4" /></ButtonLink>
 				</div>

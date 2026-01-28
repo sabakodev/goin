@@ -36,7 +36,7 @@ export default function KidungIntroduction() {
 	return (
 		<div className="mt-10 mb-8 mx-6 lg:mx-12">
 			<h1 className="font-semibold text-secondary mb-4">Introduksi & Konten</h1>
-			<div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 				{
 					contents.map((content, index) => (
 						<KidungIntroductionContent key={index} title={content.label} remark={content.remark} index={index + 1} href={content.href} />
