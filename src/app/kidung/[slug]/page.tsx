@@ -17,7 +17,7 @@ import gql from "graphql-tag"
 
 import { ChevronLeftIcon } from "@heroicons/react/24/solid"
 import { ContentArchiveNavigation } from "@/components/kidung/content/archive"
-import { tagsTypeCleaner, categoryTypeCleaner } from "@/components/abs/projects"
+import { tagsTypeCleaner, categoryTypeCleaner } from "@/components/abs/sanitize"
 
 export const PostQuery = gql`
   query PostQuery($id: ID!, $preview: Boolean = false) {
