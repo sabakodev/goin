@@ -68,7 +68,7 @@ export async function ContentArchiveNavigation({ id }: { id: string }) {
 		<div className="mx-4 xl:mx-12 mt-10 mb-8">
 			<h1 className="font-semibold text-secondary mb-4">Kidungan Lainnya</h1>
 
-			<div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4">
 				{
 					kidungan.nodes.map((content, index) => (
 						<KidungCard key={index} title={content.title ?? ''} category={(content.categories?.nodes.map((node => node.name?.toString())).filter((item): item is string => item !== undefined) ?? [])[0]} slug={content.slug ?? ''} />

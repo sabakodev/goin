@@ -3,6 +3,8 @@ import { print } from "graphql/language/printer"
 import Link from "next/link"
 import Image from "next/image"
 
+import type { Metadata, ResolvingMetadata } from 'next'
+
 import KidungLyrics from "@/components/kidung/content/lyrics"
 import KidungPlayer from "@/components/kidung/content/player"
 import KidungContentTitle from "@/components/kidung/content/title"
@@ -15,6 +17,7 @@ import gql from "graphql-tag"
 
 import { ChevronLeftIcon } from "@heroicons/react/24/solid"
 import { ContentArchiveNavigation } from "@/components/kidung/archive"
+import { tagsTypeCleaner, categoryTypeCleaner } from "@/components/abs/projects"
 
 export const PostQuery = gql`
   query PostQuery($id: ID!, $preview: Boolean = false) {
@@ -37,6 +40,59 @@ export const PostQuery = gql`
   }
 `
 
+export const ShortPostQuery = gql`
+  query PostQuery($id: ID!, $preview: Boolean = false) {
+    kidung(id: $id, idType: URI, asPreview: $preview) {
+	  id
+	  featuredImage {
+	    node {
+          sourceUrl
+        }
+      }
+      date
+      title
+      categories {
+        nodes {
+          name
+        }
+      }
+	  kidungFields {
+        media {
+          url
+        }
+      }
+    }
+  }
+`
+
+export async function generateMetadata(
+	{ params }: {
+		params: Promise<{ slug: string }>
+	},
+	parent: ResolvingMetadata
+): Promise<Metadata> {
+	const { slug } = await params
+
+	const { kidung } = await fetchGraphQL<{ kidung: Kidung }>(print(ShortPostQuery), {
+		id: `kidung/${slug}`,
+	})
+
+	if (!kidung) return {
+		title: 'Not Found',
+	}
+
+	const previousImages = (await parent).openGraph?.images || []
+
+	return {
+		title: `Kidungan Orthodox - ${kidung.title} - Standarisasi GOI & GOIN`,
+		description: 'Standarisasi Kidungan Orthodox yang dirangkum oleh Gereja Orthodox Indonesia Neophytes atas mandat Ym. Rm. Ep. Daniel Dwi Byantoro.',
+		keywords: [...categoryTypeCleaner(kidung)],
+		publisher: 'GOIN',
+		openGraph: {
+			images: [kidung.featuredImage?.node.sourceUrl ?? '', ...previousImages],
+		},
+	}
+}
 
 export default async function KidungContentPage({
 	params,
