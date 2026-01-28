@@ -16,11 +16,19 @@ export default function RootLayout({
 
 
 	return (
-		<div className="bg-blue-dark min-h-screen">
-			<HeaderBusiness />
-			<PoweredBy business={true} />
-			{children}
-			<Footer business={true} />
-		</div>
+		<>
+			<style>
+				{`body {
+					background: var(--blue-darkest);
+					color: #ffffff;
+				}`}
+			</style>
+			<div className="min-h-screen">
+				<HeaderBusiness />
+				<PoweredBy business={true} />
+				{children}
+				<Footer business={true} />
+			</div>
+		</>
 	)
 }
