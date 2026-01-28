@@ -12,12 +12,12 @@ export default function KidungIntroductionContent({ index, title, remark, href }
 			</div>
 			<div className="space-y-2 flex flex-col justify-between">
 				<h2 className={`${disabled ? 'text-neutral-500' : 'transition duratoin-300 group-hover:text-secondary'} font-semibold`}>{title}</h2>
-				<span className={`${disabled ? 'text-neutral-400' : 'text-neutral-500'} font-medium`}>{remark}</span>
+				<span className={`${disabled ? 'text-neutral-400' : 'text-neutral-500'} font-medium prose`} dangerouslySetInnerHTML={{ __html: remark }} />
 			</div>
 		</div>
 	)
 	return disabled ? <Content /> : (
-		<Link href={href}>
+		<Link href={href} target="_blank" rel="noopener">
 			<Content />
 		</Link>
 	)

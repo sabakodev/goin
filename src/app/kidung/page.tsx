@@ -1,10 +1,10 @@
 import ContentArchive from "@/components/kidung/archive"
-import { ArchiveQuery } from "@/components/kidung/query"
+import { ArchiveQuery, IntroductionArchiveQuery } from "@/components/kidung/query"
 import BannerKidungan from "@/components/kidung/banner"
 import KidungIntroduction from "@/components/kidung/introduction"
 import { fetchGraphQL } from "@/utils/fetchGraphQL"
 import { print } from "graphql/language/printer"
-import { Kidung } from "@/gql/graphql"
+import { Kidung, Konten } from "@/gql/graphql"
 
 export const revalidate = 60
 
@@ -21,13 +21,25 @@ export default async function KidungPage() {
 		},
 	)
 
+	const { kontenKidung } = await fetchGraphQL<{
+		kontenKidung: {
+			nodes: Konten[]
+			pageInfo: { hasNextPage: boolean; endCursor: string }
+		}
+	}>(
+		print(IntroductionArchiveQuery),
+		{
+			first: 20,
+		},
+	)
+
 	return (
 		<>
 			<BannerKidungan />
 			<div className="border-y-2 border-solid border-primary-dark">
 				<ContentArchive initialData={kidungan.nodes} initialCursor={kidungan.pageInfo.endCursor} hasMore={kidungan.pageInfo.hasNextPage} />
 			</div>
-			<KidungIntroduction />
+			<KidungIntroduction initialData={kontenKidung.nodes} initialCursor={kontenKidung.pageInfo.endCursor} hasMore={kontenKidung.pageInfo.hasNextPage} />
 		</>
 	)
 }
