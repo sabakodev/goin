@@ -3,8 +3,8 @@ import Link from "next/link"
 
 export default function Footer({ business = false }: { business?: boolean }) {
 	return (
-		<div className={`grid grid-cols-3 w-full justify-between items-center px-16 py-8 text-sm ${business ? 'bg-blue-dark text-blue-lighter' : 'bg-secondary text-primary'}`}>
-			<Link href="/">
+		<div className={`grid grid-cols-1 sm:grid-cols-3 w-full justify-between items-center px-16 py-8 text-sm ${business ? 'bg-blue-dark text-blue-lighter' : 'bg-secondary text-primary'}`}>
+			<Link href="/" className="justify-self-center sm:justify-self-start mb-4 sm:mb-0">
 				<Image
 					src={`/logo/goin/hollow/goin-${business ? 'blue' : 'beige'}.svg`}
 					alt="GOIN"
