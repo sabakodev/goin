@@ -5,7 +5,7 @@ import BusinessAffiliates from "@/components/abs/projects"
 
 export default function BusinessPage() {
 	return (
-		<>
+		<div className="bg-blue-dark pt-36 sm:pt-0">
 			<section className="bg-blue-darkest">
 				<Hero>
 					Aliansi Bisnis dan Servis (ABS) adalah ruang para pekerja professional, penyedia jasa/produk, maupun pebisnis yang ada di dalam GOI seluruh region Indonesia & dunia.
@@ -15,6 +15,6 @@ export default function BusinessPage() {
 				<BusinessAffiliates />
 				<BottomPitchSection />
 			</section>
-		</>
+		</div>
 	)
 }
