@@ -5,7 +5,7 @@ import Link from "next/link"
 import { print } from "graphql/language/printer"
 
 import gql from "graphql-tag"
-import { Business } from "@/gql/graphql"
+import { Business, Kidung } from "@/gql/graphql"
 import { fetchGraphQL } from "@/utils/fetchGraphQL"
 
 export const revalidate = 60
@@ -46,8 +46,8 @@ export const AffiliatesQuery = gql`
 	}
   }
 `
-export const categoryTypeCleaner = (contentNode: Business) => {
-	const tags: string[] = (contentNode.tags?.nodes as Array<{ name?: string | null }> | undefined)
+export const categoryTypeCleaner = (contentNode: Business | Kidung) => {
+	const tags: string[] = (contentNode.categories?.nodes as Array<{ name?: string | null }> | undefined)
 		?.map((node) => node.name)
 		.filter((name): name is string => !!name) ?? []
 
@@ -113,7 +113,7 @@ export async function BusinessAffiliatesLists({ short = false, id = '' }: { shor
 	)
 
 	return (
-		<div className={`grid grid-cols-1 lg:grid-cols-4 justify-items-center gap-4 mx-auto px-6 w-fit ${short ? 'mt-16' : '-mt-32'}`}>
+		<div className={`grid grid-cols-1 lg:grid-cols-4 justify-items-center gap-4 mx-auto px-6 w-fit ${short ? 'mt-16' : 'sm:-mt-32'}`}>
 			{
 				businesses.nodes.map((node, i) => (
 					<BusinessAffiliateCard
@@ -148,7 +148,7 @@ export function BusinessAffiliateCard({ slug, thumbnail, avatar, label, descript
 		<div className="flex isolate flex-col justify-end relative bg-blue-dark rounded-md pt-40 px-4 pb-4 shadow-sm hover:shadow-lg">
 			<Image src={thumbnail} alt="Thumbnail" width={400} height={600} className="rounded-md h-full absolute inset-0 -z-10 object-cover" />
 			<div className="bg-linear-to-t absolute inset-0 -z-1 transition duration-300 from-black transition duration-300 group-hover:from-blue-950 to-transparent rounded-md"></div>
-			<h2 className="font-medium text-xl truncate w-48">{label}</h2>
+			<h2 className="font-medium text-xl truncate w-36">{label}</h2>
 		</div>
 	)
 
