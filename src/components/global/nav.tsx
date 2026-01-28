@@ -1,5 +1,6 @@
 'use client'
 
+import { ArrowUpRightIcon } from "@heroicons/react/16/solid"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from 'next/navigation'
@@ -36,9 +37,9 @@ export default function Navigation() {
 	]
 
 	return (
-		<div className="fixed pt-4 w-full flex justify-center z-99">
+		<div className="fixed px-2 pt-4 w-full flex justify-center z-99">
 			<nav
-				className="bg-neutral-900/90 backdrop-blur-lg flex rounded-full p-2 space-x-2 shadow-xl/25"
+				className="bg-neutral-900/60 backdrop-blur-xl flex rounded-full p-2 space-x-2 shadow-xl/25"
 			>
 				<Link href="/">
 					<Image
@@ -54,12 +55,12 @@ export default function Navigation() {
 					nav.map(nav => (
 						<Link
 							key={nav.href}
-							className={`flex h-10 font-semibold items-center justify-center rounded-full border border-transparent border-solid px-2 lg:px-5 transition-colors hover:border-white/[.145] hover:bg-[#1a1a1a] uppercase text-sm ${pathname === nav.href ? '!text-secondary' : ''}`}
+							className={`flex h-10 font-semibold items-center justify-center rounded-full border border-transparent border-solid px-2 lg:px-5 transition-colors hover:border-white/[.145] hover:bg-[#1a1a1a] uppercase text-xs sm:text-sm ${pathname === nav.href ? '!text-secondary' : ''}`}
 							href={nav.href}
 							target={nav.external ? '_blank' : ''}
 							rel={nav.external ? 'noopener' : ''}
 						>
-							{nav.label} {nav.external ? ' ↗' : ''}
+							{nav.label} {nav.external ? <ArrowUpRightIcon className="size-4" /> : ''}
 						</Link>
 					))
 				}
