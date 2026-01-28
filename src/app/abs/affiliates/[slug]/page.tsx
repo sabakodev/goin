@@ -7,10 +7,10 @@ import Image from "next/image"
 
 import { print } from "graphql/language/printer"
 import type { Metadata, ResolvingMetadata } from 'next'
-import { BusinessAffiliatesLists, categoryTypeCleaner, tagsTypeCleaner } from "@/components/abs/projects"
-import Link from "next/link"
+import { BusinessAffiliatesShortLists } from "@/components/abs/projects"
 import { ArrowUpRightIcon } from "@heroicons/react/16/solid"
 import { ButtonLink } from "@/components/global/button"
+import { tagsTypeCleaner, categoryTypeCleaner } from "@/components/abs/sanitize"
 
 
 export const BusinessQuery = gql`
@@ -191,7 +191,7 @@ export default async function BusinessAffiliateDetailPage({
 				<div className="flex justify-center mt-4">
 					<ButtonLink href={business.aliansiBisnis?.externalHref ?? '#'} theme="business_solid">Kunjungi Website <ArrowUpRightIcon className="size-4" /></ButtonLink>
 				</div>
-				<BusinessAffiliatesLists short={true} id={business.id} />
+				<BusinessAffiliatesShortLists id={business.id} />
 				<BottomPitchSection />
 			</section>
 		)

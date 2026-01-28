@@ -16,8 +16,8 @@ import { ContentNode, Kidung } from "@/gql/graphql"
 import gql from "graphql-tag"
 
 import { ChevronLeftIcon } from "@heroicons/react/24/solid"
-import { ContentArchiveNavigation } from "@/components/kidung/archive"
-import { tagsTypeCleaner, categoryTypeCleaner } from "@/components/abs/projects"
+import { ContentArchiveNavigation } from "@/components/kidung/content/archive"
+import { tagsTypeCleaner, categoryTypeCleaner } from "@/components/abs/sanitize"
 
 export const PostQuery = gql`
   query PostQuery($id: ID!, $preview: Boolean = false) {
@@ -27,6 +27,11 @@ export const PostQuery = gql`
       date
       title
       categories {
+        nodes {
+          name
+        }
+      }
+      tags {
         nodes {
           name
         }
@@ -52,6 +57,11 @@ export const ShortPostQuery = gql`
       date
       title
       categories {
+        nodes {
+          name
+        }
+      }
+      tags {
         nodes {
           name
         }
@@ -86,7 +96,7 @@ export async function generateMetadata(
 	return {
 		title: `Kidungan Orthodox - ${kidung.title} - Standarisasi GOI & GOIN`,
 		description: 'Standarisasi Kidungan Orthodox yang dirangkum oleh Gereja Orthodox Indonesia Neophytes atas mandat Ym. Rm. Ep. Daniel Dwi Byantoro.',
-		keywords: [...categoryTypeCleaner(kidung)],
+		keywords: [...categoryTypeCleaner(kidung), ...tagsTypeCleaner(kidung)],
 		publisher: 'GOIN',
 		openGraph: {
 			images: [kidung.featuredImage?.node.sourceUrl ?? '', ...previousImages],
@@ -133,7 +143,7 @@ export default async function KidungContentPage({
 				</KidungContentTitle>
 				<KidungPlayer embed={kidung.kidungFields?.media?.url ?? ''} />
 				<KidungLyrics post={kidung} />
-				<ContentArchiveNavigation id={kidung.id} />
+				<ContentArchiveNavigation cursor={kidung.id} />
 			</div>
 		</>
 	)
