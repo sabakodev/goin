@@ -7,7 +7,7 @@ export default function Divisions() {
 
 	return (
 		<div className="bg-neutral-900">
-			<div className="grid grid-flow-row-dense grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 px-4 xl:px-0 max-w-7xl mx-auto py-16 gap-8">
+			<div className="grid grid-flow-row-dense grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 px-4 xl:px-0 max-w-7xl mx-auto py-16 gap-2 sm:gap-8">
 				<div className="text-primary space-y-4 lg:max-w-96">
 					<Image src="/cross.svg" width={18} height={28} alt="☦" className="hover:animate-pulse cursor-grabbing" />
 					<h1 className="text-2xl">Sebagian unit dan divisi yang ada dalam GOIN</h1>
