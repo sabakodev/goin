@@ -4,62 +4,38 @@ import Link from "next/link"
 
 import { print } from "graphql/language/printer"
 
-import gql from "graphql-tag"
-import { Business, Kidung } from "@/gql/graphql"
+import { Business } from "@/gql/graphql"
 import { fetchGraphQL } from "@/utils/fetchGraphQL"
+import { AffiliatesQuery } from "./query"
+import { tagsTypeCleaner } from "./sanitize"
 
-export const revalidate = 60
+export async function fetchBusinesses(after = ""): Promise<{
+	nodes: Business[]
+	hasNextPage: boolean
+	endCursor: string | null
+}> {
+	const { business } = await fetchGraphQL<{
+		business: {
+			nodes: Business[]
+			pageInfo: {
+				hasNextPage: boolean
+				endCursor: string | null
+			}
+		}
+	}>(
+		print(AffiliatesQuery),
+		{
+			after,
+			first: 10,
+		},
+	)
 
-export const AffiliatesQuery = gql`
-  query AffiliatesQuery($after: String = "", $first: Int = 20, $notIn: [ID] = "") {
-	businesses(first: $first, after: $after, where: {notIn: $notIn}) {
-	  nodes {
-		title
-		categories {
-		  nodes {
-			name
-		  }
-		}
-		tags {
-		  nodes {
-			name
-		  }
-		}
-		featuredImage {
-          node {
-            sourceUrl
-          }
-        }
-		aliansiBisnis {
-          associateName
-          associatePhotoProfile {
-            node {
-              sourceUrl
-            }
-          }
-          profilParoki
-          externalHref
-        }
-		databaseId
-		slug
-	  }
+	return {
+		nodes: business.nodes,
+		hasNextPage: business.pageInfo.hasNextPage,
+		endCursor: business.pageInfo.endCursor
 	}
-  }
-`
-export const categoryTypeCleaner = (contentNode: Business | Kidung) => {
-	const tags: string[] = (contentNode.categories?.nodes as Array<{ name?: string | null }> | undefined)
-		?.map((node) => node.name)
-		.filter((name): name is string => !!name) ?? []
 
-	return tags
-}
-
-export const tagsTypeCleaner = (contentNode: Business) => {
-	const tags: string[] = (contentNode.tags?.nodes as Array<{ name?: string | null }> | undefined)
-		?.map((node) => node.name)
-		.filter((name): name is string => !!name) ?? []
-
-	return tags
 }
 
 export default async function BusinessAffiliates() {
@@ -99,7 +75,7 @@ export default async function BusinessAffiliates() {
 	)
 }
 
-export async function BusinessAffiliatesLists({ short = false, id = '' }: { short?: boolean, id?: string }) {
+export async function BusinessAffiliatesShortLists({ id = '' }: { id?: string }) {
 	const { businesses } = await fetchGraphQL<{
 		businesses: {
 			nodes: Business[]
@@ -113,7 +89,7 @@ export async function BusinessAffiliatesLists({ short = false, id = '' }: { shor
 	)
 
 	return (
-		<div className={`grid grid-cols-1 lg:grid-cols-4 justify-items-center gap-4 mx-auto px-6 w-fit ${short ? 'mt-16' : 'sm:-mt-32'}`}>
+		<div className={`grid grid-cols-1 lg:grid-cols-4 justify-items-center gap-4 mx-auto px-6 w-fit mt-16`}>
 			{
 				businesses.nodes.map((node, i) => (
 					<BusinessAffiliateCard
@@ -133,7 +109,6 @@ export async function BusinessAffiliatesLists({ short = false, id = '' }: { shor
 }
 
 export function BusinessAffiliateCard({ slug, thumbnail, avatar, label, description, associate, detailed = false }: { slug: string, thumbnail: string, avatar: string, label: string, description: string, associate: { name: string, jurisdiction: string }, detailed?: boolean }) {
-
 	const Profile = () => (
 		<div className="flex space-x-2 items-center px-2 py-4">
 			<Image src={avatar} alt="" width={400} height={600} className="aspect-square rounded-full object-cover size-6" />
